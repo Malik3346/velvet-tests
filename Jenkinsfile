@@ -6,6 +6,11 @@ pipeline {
                 git branch: "main", url: "https://github.com/Malik3346/velvet-tests.git"
             }
         }
+        stage("Deploy") {
+            steps {
+                sh "cd /home/ubuntu/Velvet && npm install && (pm2 restart backend || pm2 start server.js --name backend)"
+            }
+        }
         stage("Build") {
             steps {
                 sh "docker build -t velvet-tests ."
